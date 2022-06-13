@@ -1,9 +1,37 @@
 package curso_link_2020.tp_link;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class ProductoXCant {
 
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	
+	@ManyToOne
 	private Producto producto;
+	
+	@Column
 	private int cant;
+	
+/*
+    @ManyToOne
+    @JoinColumn(name = "carrito_id", nullable = false)
+    private Carrito carrito;
+	*/
+	
+	
+	public ProductoXCant() {
+		super();
+	}
+
 	public ProductoXCant(Producto producto, int cant) {
 		super();
 		this.producto = producto;
@@ -29,6 +57,16 @@ public class ProductoXCant {
 	public void setCant(int cant) {
 		this.cant = cant;
 	}
+/*
+	public Carrito getCarrito() {
+		return carrito;
+	}
+
+	public void setCarrito(Carrito carrito) {
+		this.carrito = carrito;
+	}
+	*/
+	
 	
 	
 }

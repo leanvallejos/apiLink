@@ -28,7 +28,6 @@ public class Producto {
 	private Double precioDolar;
 
 	@ManyToOne
-	@JoinColumn(name = "proveedor_id")
 	private Proveedor proveedor;
 	
 	//@Transient

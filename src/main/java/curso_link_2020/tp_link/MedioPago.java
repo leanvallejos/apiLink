@@ -1,24 +1,10 @@
 package curso_link_2020.tp_link;
 
 public enum MedioPago {
-	DEBITO{
-		public Tarjeta obtenerTarjeta(Cliente cliente) {
-			return cliente.getTarjetaDebito();
-		}
-		
-	}
-	,
-	CREDITO{
-		public Tarjeta obtenerTarjeta(Cliente cliente) {
-			return cliente.getTarjetaDebito();
-		}
-		
-		public double minimoPermitido() {
-			return 100;
-		}
-	};
+	DEBITO,
+	CREDITO;
 
-	public Tarjeta obtenerTarjeta(Cliente cliente) {
+	public Tarjeta obtenerTarjeta(Usuario cliente) {
 		return null;
 	}
 

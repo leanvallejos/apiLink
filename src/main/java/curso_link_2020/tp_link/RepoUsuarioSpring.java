@@ -1,6 +1,5 @@
 package curso_link_2020.tp_link;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

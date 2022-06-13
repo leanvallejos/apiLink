@@ -15,17 +15,17 @@ public class OrdenDeCompra {
 	private LocalDate fecha;
 	private Collection<Promocion> promociones;
 	private Collection<ProductoXCant> productos;
-	private Cliente cliente;
+	private Usuario usuario;
 	private MedioPago medioPago;
 	
 
 	public OrdenDeCompra(Integer id, LocalDate fecha, Collection<ProductoXCant> productos,
-			Cliente cliente, MedioPago medioPago) {
+			Usuario cliente, MedioPago medioPago) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.productos = productos;
-		this.cliente = cliente;
+		this.usuario = cliente;
 		this.medioPago = medioPago;
 		this.promociones = new ArrayList<Promocion>();
 	}
@@ -33,8 +33,8 @@ public class OrdenDeCompra {
 
 	public void ejecutar() throws Exception {
 		
-		cliente.pagar(this.total(), this.medioPago);
-		cliente.agregarOrdenCompra(this);
+		usuario.pagar(this.total(), this.medioPago);
+		usuario.agregarOrdenCompra(this);
 	}
 	
 
@@ -91,16 +91,18 @@ public class OrdenDeCompra {
 		this.promociones = promociones;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 
 	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
 	public MedioPago getMedioPago() {
 		return medioPago;
 	}
@@ -111,7 +113,7 @@ public class OrdenDeCompra {
 
 
 	public boolean clienteTieneMembresia() {
-		return this.cliente.getTieneMembresia();
+		return this.usuario.isTieneMembresia();
 	}
 
 
