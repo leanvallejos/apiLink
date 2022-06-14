@@ -13,7 +13,9 @@ public interface RepoUsuarioSpring extends PagingAndSortingRepository<Usuario, I
 	Page<Usuario> findAll(Pageable page);
 	
 	Usuario findByUser(String user);
-
+	
+	Usuario findByCarrito(Carrito carrito);
+	
 	@Override
 	@RestResource(exported = false)
 	default void deleteById(Integer id) {

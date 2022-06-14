@@ -6,29 +6,65 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import domain.NoHayMedioDePagoException;
 
-
+@Entity
 public class OrdenDeCompra {
 	
+	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
+	@Column
 	private LocalDate fecha;
+	
+	@ManyToMany
 	private Collection<Promocion> promociones;
-	private Collection<ProductoXCant> productos;
+	
+	@OneToMany
+	private Collection<ProductoXCant> productoXCant;
+	
+	@ManyToOne
 	private Usuario usuario;
+	
+	@Column
 	private MedioPago medioPago;
 	
+	@Column
+	private Double totalSinDescuento;
+	
+	@Column
+	private Double totalADescontar;
+	
+	@Column
+	private Double total;
 
-	public OrdenDeCompra(Integer id, LocalDate fecha, Collection<ProductoXCant> productos,
+	
+	
+	public OrdenDeCompra() {
+		super();
+	}
+
+
+	public OrdenDeCompra( LocalDate fecha, Collection<ProductoXCant> productos,
 			Usuario cliente, MedioPago medioPago) {
 		super();
-		this.id = id;
 		this.fecha = fecha;
-		this.productos = productos;
+		this.productoXCant = productos;
 		this.usuario = cliente;
 		this.medioPago = medioPago;
 		this.promociones = new ArrayList<Promocion>();
 	}
+	
+	
 
 
 	public void ejecutar() throws Exception {
@@ -41,10 +77,11 @@ public class OrdenDeCompra {
 
 	public double total() throws Exception {
 		
-		double totalProductos = totalSinDescuento();
-		double descuentosPromociones = totalADescontar();
-
-		return  max(totalProductos - descuentosPromociones, 0);
+		//double totalProductos = totalSinDescuento();
+		//double descuentosPromociones = totalADescontar();
+		
+		
+		return  max(totalSinDescuento - totalADescontar, 0);
 	}
 
 	public double totalADescontar() throws Exception {
@@ -55,11 +92,11 @@ public class OrdenDeCompra {
 	}
 
 	public double totalSinDescuento() {
-		return productos.stream().mapToDouble(productoCant -> productoCant.precioFinal()).sum();
+		return productoXCant.stream().mapToDouble(productoCant -> productoCant.precioFinal()).sum();
 	}
 	
 	public  List<ProductoXCant> productosDeProovedor(Proveedor proveedor) {
-		 List<ProductoXCant> productos = this.productos.stream().filter(producto -> producto.getProducto().tieneProveedor(proveedor)).collect(Collectors.toList());
+		 List<ProductoXCant> productos = this.productoXCant.stream().filter(producto -> producto.getProducto().tieneProveedor(proveedor)).collect(Collectors.toList());
 		 if(productos.isEmpty()) {
 			 return null;
 		 }
@@ -73,7 +110,10 @@ public class OrdenDeCompra {
 	}
 	
 	public void agregarPromociones(Collection<Promocion> promociones) {
-		this.promociones.addAll(promociones);
+		
+		Collection<Promocion> promocionesAplicables = promociones.stream().filter(promocion -> promocion.esValidoPara(this)).collect(Collectors.toList());
+		
+		this.promociones.addAll(promocionesAplicables);
 	}
 
 	private double max(double d, int i) {
@@ -136,23 +176,52 @@ public class OrdenDeCompra {
 		this.fecha = fecha;
 	}
 
-	
-
-	public Collection<ProductoXCant> getProductos() {
-		return productos;
-	}
-
-
-	public void setProductos(Collection<ProductoXCant> productos) {
-		this.productos = productos;
-	}
-
 
 	@Override
 	public boolean equals(Object obj) {
 		OrdenDeCompra otraOrden = (OrdenDeCompra) obj;
 		
 		return this.id.equals(otraOrden.getId());
+	}
+
+
+	public Collection<ProductoXCant> getProductoXCant() {
+		return productoXCant;
+	}
+
+
+	public void setProductoXCant(Collection<ProductoXCant> productoXCant) {
+		this.productoXCant = productoXCant;
+	}
+
+
+	public Double getTotalSinDescuento() {
+		return totalSinDescuento;
+	}
+
+
+	public void setTotalSinDescuento(Double totalSinDescuento) {
+		this.totalSinDescuento = totalSinDescuento;
+	}
+
+
+	public Double getTotalADescontar() {
+		return totalADescontar;
+	}
+
+
+	public void setTotalADescontar(Double totalADescontar) {
+		this.totalADescontar = totalADescontar;
+	}
+
+
+	public Double getTotal() {
+		return total;
+	}
+
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 

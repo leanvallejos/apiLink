@@ -39,7 +39,7 @@ public class ProductoXCant {
 	}
 	
 	public double precioFinal(){
-		return producto.getPrecioPesos()*cant;
+		return producto.getPrecioDolar()*cant;
 	}
 
 	public Producto getProducto() {

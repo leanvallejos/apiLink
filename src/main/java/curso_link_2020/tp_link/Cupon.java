@@ -50,6 +50,10 @@ public class Cupon extends Promocion{
 		
 		Collection<ProductoXCant> productos = ordenDeCompra.productosDeProovedor(this.proveedor);
 		
+		if(productos == null){
+			return false;
+		}
+		
 		return productos.stream().anyMatch(unProducto -> unProducto.getProducto().equals(this.producto));
 
 	}

@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class InitData implements CommandLineRunner {
 
@@ -31,7 +32,13 @@ public class InitData implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		config.exposeIdsFor(Proveedor.class, Usuario.class, Producto.class);
+		config.exposeIdsFor(Proveedor.class);
+		config.exposeIdsFor(Usuario.class);
+		config.exposeIdsFor(Producto.class);
+		config.exposeIdsFor(OrdenDeCompra.class);
+
+	
+
 		
 		Proveedor unProveedor = new Proveedor("La Serenisima");
 		Proveedor otroProveedor = new Proveedor("Coca cola");
@@ -58,8 +65,34 @@ public class InitData implements CommandLineRunner {
 		
 		if(repoPromociones.count() == 0) {
 			Cupon cupon = new Cupon("Cupon 10% coca-cola", 10.0, true, "1234", otroProveedor, producto1);
-			//repoPromociones.save((Promocion) cupon);
+			repoPromociones.save((Promocion) cupon);
 		}
+		/*
+		java.util.List<Promocion> listaPromociones = repoPromociones.findAllByEstaActivo(true);
+		
+		Promocion promocion = listaPromociones.get(0);
+		
+		System.out.println("La promocion se llama: " + promocion.getNombre());
+
+		
+		
+		Optional<Carrito> unCarrito = repoCarritos.findById(lean.getCarrito().getId());
+		if(!unCarrito.isPresent()) {
+			System.out.println("No se encontro el carrito de lean en la base de datos");
+		}
+		Carrito carritoPosta = unCarrito.get();
+		
+		Usuario usuarioEncontrado = repoUsuarios.findByCarrito(carritoPosta);
+		
+		if(usuarioEncontrado == null) {
+			System.out.println("No se encontro el usuario del carrito en la base de datos");
+		}else {
+			System.out.println("El usuario con el carrito de lean es: " + usuarioEncontrado.getNombre());
+
+		}
+		*/
+		
+		
 
 	}
 

@@ -1,5 +1,8 @@
 package curso_link_2020.tp_link;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -19,6 +22,13 @@ public class CarritoControllerComplement {
 
 	@Autowired
 	RepoCarritosSpring repoCarritos;
+	
+	@Autowired
+	RepoUsuarioSpring repoUsuarios ;
+	
+	@Autowired
+	RepoPromocionesSpring repoPromociones;
+	
 	
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST, value = "/carritos/{carritoId}/agregarProducto")
@@ -40,6 +50,34 @@ public class CarritoControllerComplement {
 		}
 		
 		return ResponseEntity.ok(productoXCant.getContent());
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/carritos/{carritoId}/generarOrdenDeCompra")
+	public @ResponseBody OrdenDeCompra generarOrdenDeCompra(@PathVariable("carritoId") Integer carritoId) throws Exception {
+		
+		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
+		
+		if(!optionalCarrito.isPresent()) {
+			return null;
+		}
+		
+		Carrito carrito = optionalCarrito.get();
+		
+		Usuario usuario = repoUsuarios.findByCarrito(carrito);
+		
+		Collection<Promocion> promocionesActivas = repoPromociones.findAllByEstaActivo(true);
+		
+		OrdenDeCompra ordenDeCompra = new OrdenDeCompra(LocalDate.now(), carrito.getProductos(), usuario, MedioPago.DEBITO);
+		
+		ordenDeCompra.agregarPromociones(promocionesActivas);
+		ordenDeCompra.setTotalSinDescuento(ordenDeCompra.totalSinDescuento());
+		ordenDeCompra.setTotalADescontar(ordenDeCompra.totalADescontar());
+		ordenDeCompra.setTotal(ordenDeCompra.total());
+
+		
+		return ordenDeCompra;
+		
 		
 	}
 	
