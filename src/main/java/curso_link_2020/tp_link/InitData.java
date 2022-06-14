@@ -36,6 +36,8 @@ public class InitData implements CommandLineRunner {
 		config.exposeIdsFor(Usuario.class);
 		config.exposeIdsFor(Producto.class);
 		config.exposeIdsFor(OrdenDeCompra.class);
+		config.exposeIdsFor(ProductoXCant.class);
+
 
 	
 

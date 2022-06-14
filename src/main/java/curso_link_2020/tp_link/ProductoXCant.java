@@ -66,6 +66,14 @@ public class ProductoXCant {
 		this.carrito = carrito;
 	}
 	*/
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	
 	

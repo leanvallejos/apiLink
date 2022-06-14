@@ -54,7 +54,7 @@ public class OrdenDeCompra {
 	}
 
 
-	public OrdenDeCompra( LocalDate fecha, Collection<ProductoXCant> productos,
+	public OrdenDeCompra(LocalDate fecha, Collection<ProductoXCant> productos,
 			Usuario cliente, MedioPago medioPago) {
 		super();
 		this.fecha = fecha;
@@ -65,6 +65,20 @@ public class OrdenDeCompra {
 	}
 	
 	
+
+
+	public OrdenDeCompra(LocalDate fecha, Collection<Promocion> promociones, Collection<ProductoXCant> productoXCant,
+			Usuario usuario, MedioPago medioPago, Double totalSinDescuento, Double totalADescontar, Double total) {
+		super();
+		this.fecha = fecha;
+		this.promociones = promociones;
+		this.productoXCant = productoXCant;
+		this.usuario = usuario;
+		this.medioPago = medioPago;
+		this.totalSinDescuento = totalSinDescuento;
+		this.totalADescontar = totalADescontar;
+		this.total = total;
+	}
 
 
 	public void ejecutar() throws Exception {
