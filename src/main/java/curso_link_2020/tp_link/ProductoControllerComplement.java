@@ -3,6 +3,8 @@ package curso_link_2020.tp_link;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +18,9 @@ public class ProductoControllerComplement {
 	RepoProductosSpring repoProductos;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/productos/habilitados")
-	public @ResponseBody List<Producto> productosHabilitados() {
+	public @ResponseBody Page<Producto> productosHabilitados(Pageable page) {
 		
-		List<Producto> productosHabilitados = repoProductos.findAllByHabilitado(true);
+		Page<Producto> productosHabilitados = repoProductos.findAllByHabilitado(true, page);
 		
 		
 		return productosHabilitados;

@@ -2,6 +2,8 @@ package curso_link_2020.tp_link;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -15,7 +17,7 @@ public interface RepoProductosSpring extends PagingAndSortingRepository<Producto
 	
 	List<Producto> findAllByNombre(String nombre);
 	
-	List<Producto> findAllByHabilitado(boolean habilitado);
+	Page<Producto> findAllByHabilitado(boolean habilitado, Pageable page);
 	
 	Producto findByNombre(String nombre);
 	

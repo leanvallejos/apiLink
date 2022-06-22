@@ -107,9 +107,11 @@ public class CarritoControllerComplement {
 	}
 	
 	
-	
+	@Transactional
 	@RequestMapping(method = RequestMethod.POST, value = "/carritos/{carritoId}/generarOrdenDeCompra")
-	public @ResponseBody OrdenDeCompra generarOrdenDeCompra(@PathVariable("carritoId") Integer carritoId, @RequestBody MedioPago medioPago) throws Exception {
+	public @ResponseBody OrdenDeCompra generarOrdenDeCompra(@PathVariable("carritoId") Integer carritoId, @RequestBody Integer numMedioPago) throws Exception{
+		
+		System.out.println(numMedioPago);
 		
 		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
 		
@@ -123,7 +125,11 @@ public class CarritoControllerComplement {
 		
 		Collection<Promocion> promocionesActivas = repoPromociones.findAllByEstaActivo(true);
 		
-		OrdenDeCompra ordenDeCompra = new OrdenDeCompra(LocalDate.now(), carrito.getProductos(), usuario, medioPago);
+		
+		MedioPago medio = this.medioCorrespondiente(numMedioPago);
+		
+		
+		OrdenDeCompra ordenDeCompra = new OrdenDeCompra(LocalDate.now(), carrito.getProductos(), usuario, medio);
 		
 		ordenDeCompra.agregarPromociones(promocionesActivas);
 		ordenDeCompra.setTotalSinDescuento(ordenDeCompra.totalSinDescuento());
@@ -134,6 +140,19 @@ public class CarritoControllerComplement {
 		return ordenDeCompra;
 		
 		
+	}
+	
+	public MedioPago medioCorrespondiente(Integer num) {
+		switch(num) {
+		
+		case 1:
+			return MedioPago.DEBITO;
+		
+		case 2:
+			return MedioPago.CREDITO;
+		}
+		
+		return null;
 	}
 	
 	
