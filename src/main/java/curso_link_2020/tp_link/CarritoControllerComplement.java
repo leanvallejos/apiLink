@@ -24,6 +24,9 @@ public class CarritoControllerComplement {
 	RepoCarritosSpring repoCarritos;
 	
 	@Autowired
+	RepoProductoXCantSpring repoProductosXCant;
+	
+	@Autowired
 	RepoUsuarioSpring repoUsuarios ;
 	
 	@Autowired
@@ -34,7 +37,7 @@ public class CarritoControllerComplement {
 	@RequestMapping(method = RequestMethod.POST, value = "/carritos/{carritoId}/agregarProducto")
 	public @ResponseBody ResponseEntity<ProductoXCant> agregarProducto(@PathVariable("carritoId") Integer carritoId , @RequestBody EntityModel<ProductoXCant>  productoXCant) {
 		
-
+		
 		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
 		
 		if(!optionalCarrito.isPresent()) {
@@ -53,8 +56,60 @@ public class CarritoControllerComplement {
 		
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/carritos/{carritoId}/generarOrdenDeCompra")
-	public @ResponseBody OrdenDeCompra generarOrdenDeCompra(@PathVariable("carritoId") Integer carritoId) throws Exception {
+	@Transactional
+	@RequestMapping(method = RequestMethod.POST, value = "/carritos/{carritoId}/eliminarProducto")
+	public @ResponseBody String eliminarProducto(@PathVariable("carritoId") Integer carritoId , @RequestBody Integer idProductoXCant) {
+		
+	
+		Optional<ProductoXCant> optionalProductoXCant = repoProductosXCant.findById(idProductoXCant);
+
+		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
+		
+		if(!optionalCarrito.isPresent()) {
+			return null;
+		}
+		
+		Carrito carrito = optionalCarrito.get();
+		
+		ProductoXCant productoXCant = optionalProductoXCant.get();
+		
+		try {
+			carrito.eliminarProducto(productoXCant);
+			repoProductosXCant.delete(productoXCant);
+		}catch (Exception e) {
+			return "No se pudo eliminar el producto del carrito";
+		}
+		
+		
+		
+		return "Se pudo eliminar el producto del carrito";
+		
+	}
+	
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/carritos/{carritoId}/productosXCant")
+	public @ResponseBody List<ProductoXCant> mostrarProductosXCant(@PathVariable("carritoId") Integer carritoId) {
+		
+
+		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
+		
+		if(!optionalCarrito.isPresent()) {
+			return null;
+		}
+		
+		Carrito carrito = optionalCarrito.get();
+		
+
+		
+		return (List<ProductoXCant>) carrito.getProductosXCant();
+		
+	}
+	
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/carritos/{carritoId}/generarOrdenDeCompra")
+	public @ResponseBody OrdenDeCompra generarOrdenDeCompra(@PathVariable("carritoId") Integer carritoId, @RequestBody MedioPago medioPago) throws Exception {
 		
 		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
 		
@@ -68,7 +123,7 @@ public class CarritoControllerComplement {
 		
 		Collection<Promocion> promocionesActivas = repoPromociones.findAllByEstaActivo(true);
 		
-		OrdenDeCompra ordenDeCompra = new OrdenDeCompra(LocalDate.now(), carrito.getProductos(), usuario, MedioPago.DEBITO);
+		OrdenDeCompra ordenDeCompra = new OrdenDeCompra(LocalDate.now(), carrito.getProductos(), usuario, medioPago);
 		
 		ordenDeCompra.agregarPromociones(promocionesActivas);
 		ordenDeCompra.setTotalSinDescuento(ordenDeCompra.totalSinDescuento());
@@ -80,6 +135,8 @@ public class CarritoControllerComplement {
 		
 		
 	}
+	
+	
 	
 	
 }

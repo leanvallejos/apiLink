@@ -30,6 +30,12 @@ public class Producto {
 	@ManyToOne
 	private Proveedor proveedor;
 	
+	@Column(length = 1000)
+	private String urlImagen;
+	
+	@Column
+	private boolean habilitado;
+	
 	//@Transient
 	//private ConvertidorDolarPesos convertidor;
 	
@@ -41,12 +47,14 @@ public class Producto {
 		super();
 	}
 
-	public Producto(String nombre, String descripcion, Double precioDolar, Proveedor proveedor) {
+	public Producto(String nombre, String descripcion, Double precioDolar, Proveedor proveedor, String urlImagen) {
 		
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precioDolar = precioDolar;
 		this.proveedor = proveedor;
+		this.urlImagen = urlImagen;
+		this.habilitado = true;
 		//this.convertidor = new ApiConvertidor("http://api-dolar-argentina.herokuapp.com/api/dolaroficial");
 		
 	}
@@ -117,6 +125,22 @@ public class Producto {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
 	}
 
 	
