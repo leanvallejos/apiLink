@@ -86,8 +86,6 @@ public class CarritoControllerComplement {
 		
 	}
 	
-	
-	
 	@RequestMapping(method = RequestMethod.GET, value = "/carritos/{carritoId}/productosXCant")
 	public @ResponseBody List<ProductoXCant> mostrarProductosXCant(@PathVariable("carritoId") Integer carritoId) {
 		
