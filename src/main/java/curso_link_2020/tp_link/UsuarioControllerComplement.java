@@ -22,12 +22,17 @@ public class UsuarioControllerComplement {
 	@Autowired
 	RepoUsuarioSpring repoUsuarios;
 	
+	@Autowired
+	RepoCarritosSpring repoCarritos;
+	
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST, value = "/usuarios")
 	public @ResponseBody String agregarUsuario(@RequestBody Usuario usuario) {
 		
-		usuario.setCarrito(new Carrito());
+		Carrito carrito = new Carrito();
 		
+		usuario.setCarrito(carrito);
+		repoCarritos.save(carrito);
 		repoUsuarios.save(usuario);
 		
 		return "ok";

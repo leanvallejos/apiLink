@@ -8,9 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Entity
+@Table(name="promociones") 
 @DiscriminatorColumn(name = "TIPO")
 public class Promocion {
 	

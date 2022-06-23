@@ -21,12 +21,6 @@ public class ProductoXCant {
 	@Column
 	private int cant;
 	
-/*
-    @ManyToOne
-    @JoinColumn(name = "carrito_id", nullable = false)
-    private Carrito carrito;
-	*/
-	
 	
 	public ProductoXCant() {
 		super();
