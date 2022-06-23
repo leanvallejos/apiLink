@@ -1,6 +1,8 @@
 package curso_link_2020.tp_link;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RepositoryRestResource(path = "usuarios")
 public interface RepoUsuarioSpring extends PagingAndSortingRepository<Usuario, Integer> {
 	
-	Page<Usuario> findAll(Pageable page);
+	List<Usuario> findAll();
 	
 	Usuario findByUser(String user);
 	
