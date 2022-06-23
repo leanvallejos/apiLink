@@ -91,9 +91,6 @@ public class OrdenDeCompra {
 
 	public double total() throws Exception {
 		
-		//double totalProductos = totalSinDescuento();
-		//double descuentosPromociones = totalADescontar();
-		
 		
 		return  max(totalSinDescuento - totalADescontar, 0);
 	}

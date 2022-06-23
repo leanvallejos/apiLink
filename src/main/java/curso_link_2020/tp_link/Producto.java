@@ -5,12 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
-
-import domain.ApiConvertidor;
-import domain.ConvertidorDolarPesos;
 
 @Entity
 public class Producto {
@@ -36,11 +31,7 @@ public class Producto {
 	@Column
 	private boolean habilitado;
 	
-	//@Transient
-	//private ConvertidorDolarPesos convertidor;
-	
-	
-	
+
 	
 	
 	public Producto() {
