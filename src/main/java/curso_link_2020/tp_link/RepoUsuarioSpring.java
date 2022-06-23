@@ -19,19 +19,7 @@ public interface RepoUsuarioSpring extends PagingAndSortingRepository<Usuario, I
 	
 	Usuario findByCarrito(Carrito carrito);
 	
-	@Override
-	@RestResource(exported = false)
-	default void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	@RestResource(exported = false)
-	default void delete(Usuario entity) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 }

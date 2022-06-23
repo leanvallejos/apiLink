@@ -61,7 +61,7 @@ public class InitData implements CommandLineRunner {
 			repoProveedores.save(unProveedor);
 			repoProveedores.save(otroProveedor);
 		}
-		/*
+		
 		if(repoUsuarios.count() == 0) {
 			repoCarritos.save(carritoLean);
 			repoCarritos.save(carritoPepe);
@@ -69,7 +69,7 @@ public class InitData implements CommandLineRunner {
 			repoUsuarios.save(pepe);
 
 		}
-		
+		/*
 		*/
 		/*
 		if(repoProductos.count() == 0) {
