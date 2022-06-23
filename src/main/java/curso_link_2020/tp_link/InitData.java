@@ -71,13 +71,15 @@ public class InitData implements CommandLineRunner {
 		}
 		
 		*/
-		
+		/*
 		if(repoProductos.count() == 0) {
 			repoProductos.save(producto1);
 			repoProductos.save(producto2);
 			Cupon cupon = new Cupon("Cupon 10% coca-cola", 10.0, true, "1234", otroProveedor, producto1);
 			repoPromociones.save((Promocion) cupon);
 		}
+		
+		*/
 		
 		
 		
