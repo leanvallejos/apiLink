@@ -49,8 +49,6 @@ public class Usuario {
 	}
 
 
-	
-
 	public Usuario(String user, String password, String nombre, String apellido, int numDoc,
 			boolean tieneMembresia, TipoUsuario tipo) {
 		super();
