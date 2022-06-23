@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import domain.NoHayMedioDePagoException;
 
@@ -32,7 +33,7 @@ public class OrdenDeCompra {
 	@OneToMany
 	private Collection<ProductoXCant> productoXCant;
 	
-	@ManyToOne
+	@Transient
 	private Usuario usuario;
 	
 	@Column
