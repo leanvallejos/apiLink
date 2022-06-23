@@ -7,12 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "usuaries")
 public class Usuario {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -159,19 +156,6 @@ public class Usuario {
 
 
 
-
-	public void pagar(double total, MedioPago medioPago) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	public void agregarOrdenCompra(OrdenDeCompra ordenDeCompra) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	
 	

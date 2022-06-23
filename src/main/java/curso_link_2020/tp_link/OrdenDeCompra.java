@@ -83,8 +83,7 @@ public class OrdenDeCompra {
 
 	public void ejecutar() throws Exception {
 		
-		usuario.pagar(this.total(), this.medioPago);
-		usuario.agregarOrdenCompra(this);
+		
 	}
 	
 
