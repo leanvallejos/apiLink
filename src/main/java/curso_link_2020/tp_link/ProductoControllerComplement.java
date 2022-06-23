@@ -24,11 +24,9 @@ public class ProductoControllerComplement {
 	public @ResponseBody Page<Producto> productosHabilitados(Pageable page) {
 		
 		Page<Producto> productosHabilitados = repoProductos.findAllByHabilitado(true, page);
-		
-		
+
 		return productosHabilitados;
 		
-
 	}
 	
 	@Transactional

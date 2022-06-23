@@ -80,8 +80,6 @@ public class CarritoControllerComplement {
 			return "No se pudo eliminar el producto del carrito";
 		}
 		
-		
-		
 		return "Se pudo eliminar el producto del carrito";
 		
 	}
