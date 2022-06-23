@@ -55,13 +55,7 @@ public class Producto {
 		this.proveedor = proveedor;
 		this.urlImagen = urlImagen;
 		this.habilitado = true;
-		//this.convertidor = new ApiConvertidor("http://api-dolar-argentina.herokuapp.com/api/dolaroficial");
 		
-	}
-	
-	public double getPrecioPesos() {
-		return 0;
-		//return convertidor.convertirAPesos(this.precioDolar);
 	}
 	
 	

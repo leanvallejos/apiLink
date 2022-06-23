@@ -1,6 +1,8 @@
 package curso_link_2020.tp_link;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
@@ -63,8 +65,10 @@ public class Cupon extends Promocion{
 	public Double totalADescontar(OrdenDeCompra ordenDeCompra) {
 		
 		Collection<ProductoXCant> productos = ordenDeCompra.productosDeProovedor(this.proveedor);
+		
+		List<ProductoXCant> productosValidos = productos.stream().filter(productoXCant -> productoXCant.getProducto() == this.producto).collect(Collectors.toList());
 
-		double totalProductos = productos.stream().mapToDouble(productoCant -> productoCant.precioFinal()).sum();
+		double totalProductos = productosValidos.stream().mapToDouble(productoCant -> productoCant.precioFinal()).sum();
 		
 		return totalProductos;
 	}
