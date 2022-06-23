@@ -21,7 +21,4 @@ public interface RepoUsuarioSpring extends PagingAndSortingRepository<Usuario, I
 	
 	Usuario findByCarrito(Carrito carrito);
 	
-
-	
-	
 }
