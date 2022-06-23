@@ -1,8 +1,6 @@
 package curso_link_2020.tp_link;
 
-import java.util.ArrayList;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +12,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
 	
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
