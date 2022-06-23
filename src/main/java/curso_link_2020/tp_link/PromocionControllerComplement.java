@@ -18,10 +18,8 @@ public class PromocionControllerComplement {
 	public @ResponseBody List<Promocion> promocionesActivas() {
 		
 		List<Promocion> promocionesActivas = repoPromociones.findAllByEstaActivo(true);
-		
-		
+			
 		return promocionesActivas;
-		
-
+	
 	}
 }
