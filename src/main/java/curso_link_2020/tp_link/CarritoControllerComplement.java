@@ -111,7 +111,6 @@ public class CarritoControllerComplement {
 	@RequestMapping(method = RequestMethod.POST, value = "/carritos/{carritoId}/generarOrdenDeCompra")
 	public @ResponseBody OrdenDeCompra generarOrdenDeCompra(@PathVariable("carritoId") Integer carritoId, @RequestBody Integer numMedioPago) throws Exception{
 		
-		System.out.println(numMedioPago);
 		
 		Optional<Carrito> optionalCarrito = repoCarritos.findById(carritoId);
 		
